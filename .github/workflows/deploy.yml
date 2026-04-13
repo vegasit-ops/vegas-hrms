@@ -1,0 +1,101 @@
+name: Deploy HRMS
+
+on:
+  push:
+    branches: [main]
+
+env:
+  DEPLOY_PATH: /opt/frappe_docker
+  SITE_NAME: hrms.cloudagents.uk
+  IMAGE_TAG: vegas-hrms:v15
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
+        env:
+          DROPLET_SSH_KEY: ${{ secrets.DROPLET_SSH_KEY }}
+
+      - name: Check if apps.json changed
+        id: apps_check
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -q "apps.json"; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Copy updated files to server
+        run: |
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            apps.json docker-compose.prod.yml \
+            root@${{ secrets.DROPLET_IP }}:${{ env.DEPLOY_PATH }}/
+
+      - name: Rebuild Docker image (if apps.json changed)
+        if: steps.apps_check.outputs.changed == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            root@${{ secrets.DROPLET_IP }} << 'ENDSSH'
+          set -e
+          cd /opt/frappe_docker
+          export APPS_JSON_BASE64=$(base64 -w 0 apps.json)
+          docker build \
+            --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
+            --build-arg=FRAPPE_BRANCH=version-15 \
+            --build-arg=APPS_JSON_BASE64=$APPS_JSON_BASE64 \
+            --tag=vegas-hrms:v15 \
+            --file=images/layered/Containerfile .
+          ENDSSH
+
+      - name: Run bench migrate
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            root@${{ secrets.DROPLET_IP }} << 'ENDSSH'
+          set -e
+          cd /opt/frappe_docker
+          docker compose -f docker-compose.prod.yml exec -T backend \
+            bench --site hrms.cloudagents.uk migrate
+          ENDSSH
+
+      - name: Restart containers
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            root@${{ secrets.DROPLET_IP }} << 'ENDSSH'
+          set -e
+          cd /opt/frappe_docker
+          docker compose -f docker-compose.prod.yml down
+          docker compose -f docker-compose.prod.yml up -d
+          echo "Waiting for services to start..."
+          sleep 30
+          ENDSSH
+
+      - name: Health check
+        run: |
+          for i in $(seq 1 10); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              https://hrms.cloudagents.uk/api/method/ping || true)
+            if [ "$STATUS" = "200" ]; then
+              echo "Health check passed - site is up"
+              exit 0
+            fi
+            echo "Attempt $i/10 - Status: $STATUS - waiting 15s..."
+            sleep 15
+          done
+          echo "Health check failed after 10 attempts"
+          exit 1
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

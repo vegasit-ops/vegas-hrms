@@ -1,0 +1,78 @@
+name: Scheduled Backup
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  # Daily at 2 AM UTC
+  workflow_dispatch:       # Allow manual trigger
+
+env:
+  DEPLOY_PATH: /opt/frappe_docker
+  SITE_NAME: hrms.cloudagents.uk
+
+jobs:
+  backup:
+    name: Backup HRMS Database
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_IP }} >> ~/.ssh/known_hosts
+
+      - name: Run backup and cleanup old backups
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            root@${{ secrets.DROPLET_IP }} << 'ENDSSH'
+          set -e
+
+          DEPLOY_PATH=/opt/frappe_docker
+          SITE_NAME=hrms.cloudagents.uk
+          BACKUP_DIR=/opt/backups/hrms
+          RETENTION_DAYS=7
+
+          echo "=== Starting HRMS Backup ==="
+          date
+
+          # Create backup directory
+          mkdir -p "$BACKUP_DIR"
+
+          # Run bench backup (database + files)
+          cd "$DEPLOY_PATH"
+          docker compose -f docker-compose.prod.yml exec -T backend \
+            bench --site "$SITE_NAME" backup --with-files
+
+          # Copy backup files from Docker volume to host
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          DEST="$BACKUP_DIR/$TIMESTAMP"
+          mkdir -p "$DEST"
+
+          CONTAINER=$(docker compose -f docker-compose.prod.yml ps -q backend)
+          SITE_PATH="/home/frappe/frappe-bench/sites/$SITE_NAME/private/backups"
+
+          # Get the latest backup files
+          LATEST_SQL=$(docker exec "$CONTAINER" ls -t "$SITE_PATH"/*database*.sql.gz 2>/dev/null | head -1)
+          LATEST_FILES=$(docker exec "$CONTAINER" ls -t "$SITE_PATH"/*files*.tar 2>/dev/null | head -1)
+          LATEST_PRIVATE=$(docker exec "$CONTAINER" ls -t "$SITE_PATH"/*private-files*.tar 2>/dev/null | head -1)
+
+          [ -n "$LATEST_SQL" ] && docker cp "$CONTAINER:$LATEST_SQL" "$DEST/"
+          [ -n "$LATEST_FILES" ] && docker cp "$CONTAINER:$LATEST_FILES" "$DEST/"
+          [ -n "$LATEST_PRIVATE" ] && docker cp "$CONTAINER:$LATEST_PRIVATE" "$DEST/"
+
+          echo "Backup saved to: $DEST"
+          ls -lh "$DEST/"
+
+          # Remove backups older than retention period
+          echo "=== Cleaning up backups older than $RETENTION_DAYS days ==="
+          find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -mtime +$RETENTION_DAYS -exec rm -rf {} \;
+
+          echo "=== Remaining backups ==="
+          ls -la "$BACKUP_DIR/"
+
+          echo "=== Backup Complete ==="
+          ENDSSH
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

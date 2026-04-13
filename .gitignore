@@ -1,3 +1,29 @@
+# Environment files
 .env
+*.env.local
+
+# Python
 *.pyc
 __pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Backup files
+*.sql.gz
+*.tar
+backups/
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
