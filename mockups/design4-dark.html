@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Design 4: Dark Pro — VEGAS IT GLOBAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: #0a0a0a; color: #e5e5e5; min-height: 100vh; }
+.bg-grid { position: fixed; inset: 0; background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 32px 32px; z-index: 0; }
+.bg-glow { position: fixed; top: -200px; left: 50%; transform: translateX(-50%); width: 1000px; height: 500px; background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 70%); z-index: 0; pointer-events: none; }
+.wrap { position: relative; z-index: 1; }
+.topbar { padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(10,10,10,0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 10; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+.logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #8b5cf6, #ec4899); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.nav-links { display: flex; gap: 4px; }
+.nav-link { padding: 8px 14px; border-radius: 8px; color: #a3a3a3; font-size: 14px; cursor: pointer; transition: all .15s; }
+.nav-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-link.active { color: #fff; background: rgba(139,92,246,0.15); }
+.user-pill { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; }
+.user-pill .avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #ec4899); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+.user-pill span { font-size: 13px; font-weight: 500; }
+.main-content { max-width: 1320px; margin: 0 auto; padding: 48px 32px; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+.page-header h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
+.page-header h1 .gradient { background: linear-gradient(135deg, #a78bfa, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header p { color: #737373; font-size: 15px; }
+.btn-primary { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(139,92,246,0.4); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; transition: all .2s; position: relative; overflow: hidden; }
+.stat:hover { border-color: rgba(139,92,246,0.4); background: rgba(255,255,255,0.04); }
+.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); }
+.stat-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.stat-icon { width: 36px; height: 36px; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #a78bfa; font-size: 14px; }
+.stat-trend { font-size: 11px; color: #22c55e; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); padding: 2px 8px; border-radius: 100px; }
+.stat-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+.stat-label { font-size: 12px; color: #737373; }
+.action-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.action { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
+.action:hover { border-color: #8b5cf6; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139,92,246,0.2); }
+.action-icon { width: 44px; height: 44px; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.2)); border: 1px solid rgba(139,92,246,0.3); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #a78bfa; margin-bottom: 14px; }
+.action h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.action p { font-size: 12px; color: #737373; }
+.content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.panel-head h2 { font-size: 16px; font-weight: 600; }
+.panel-head a { font-size: 12px; color: #a78bfa; text-decoration: none; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-size: 11px; font-weight: 500; color: #737373; text-transform: uppercase; letter-spacing: .05em; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+td { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
+.status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; }
+.status-approved { color: #22c55e; }
+.status-approved .status-dot { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.status-pending { color: #f59e0b; }
+.status-pending .status-dot { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.leave-card { padding: 16px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+.leave-card::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 3px; }
+.leave-card.casual { background: rgba(99,102,241,0.08); }
+.leave-card.casual::after { background: #6366f1; }
+.leave-card.sick { background: rgba(245,158,11,0.08); }
+.leave-card.sick::after { background: #f59e0b; }
+.leave-card.earned { background: rgba(34,197,94,0.08); }
+.leave-card.earned::after { background: #22c55e; }
+.leave-num { font-size: 22px; font-weight: 700; }
+.leave-lbl { font-size: 12px; color: #a3a3a3; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="wrap">
+  <nav class="topbar">
+    <div class="logo">
+      <div class="logo-icon">V</div>
+      <span>VEGAS IT GLOBAL</span>
+    </div>
+    <div class="nav-links">
+      <div class="nav-link active">Dashboard</div>
+      <div class="nav-link">Timesheets</div>
+      <div class="nav-link">Leaves</div>
+      <div class="nav-link">Payslips</div>
+      <div class="nav-link">Profile</div>
+    </div>
+    <div class="user-pill">
+      <div class="avatar">OV</div>
+      <span>Orugunta</span>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="page-header">
+      <div>
+        <h1>Welcome back, <span class="gradient">Orugunta</span></h1>
+        <p>Tuesday, 14 April 2026 · Cloudagents Project</p>
+      </div>
+      <button class="btn-primary"><i class="fa-solid fa-plus"></i> New Timesheet</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-top">
+          <div class="stat-icon"><i class="fa-regular fa-clock"></i></div>
+          <span class="stat-trend">+8h today</span>
+        </div>
+        <div class="stat-value">176</div>
+        <div class="stat-label">Hours this month</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top">
+          <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
+          <span class="stat-trend">100%</span>
+        </div>
+        <div class="stat-value">22/22</div>
+        <div class="stat-label">Attendance days</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top">
+          <div class="stat-icon"><i class="fa-solid fa-plane"></i></div>
+          <span class="stat-trend" style="color:#a78bfa;background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.2);">15 left</span>
+        </div>
+        <div class="stat-value">15</div>
+        <div class="stat-label">Leave balance</div>
+      </div>
+      <div class="stat">
+        <div class="stat-top">
+          <div class="stat-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          <span class="stat-trend">Paid</span>
+        </div>
+        <div class="stat-value">₹45K</div>
+        <div class="stat-label">Last payslip</div>
+      </div>
+    </div>
+
+    <div class="action-strip">
+      <div class="action">
+        <div class="action-icon"><i class="fa-regular fa-clock"></i></div>
+        <h3>Log Hours</h3>
+        <p>Submit daily timesheet</p>
+      </div>
+      <div class="action">
+        <div class="action-icon"><i class="fa-solid fa-plane-departure"></i></div>
+        <h3>Apply Leave</h3>
+        <p>Request time off</p>
+      </div>
+      <div class="action">
+        <div class="action-icon"><i class="fa-solid fa-file-invoice"></i></div>
+        <h3>Payslips</h3>
+        <p>View & download</p>
+      </div>
+      <div class="action">
+        <div class="action-icon"><i class="fa-regular fa-id-badge"></i></div>
+        <h3>Profile</h3>
+        <p>Manage details</p>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Recent Timesheets</h2>
+          <a href="#">View all →</a>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Project</th><th>Hours</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>14 Apr 2026</td>
+              <td>Cloudagents</td>
+              <td>8.0h</td>
+              <td><span class="status-pending"><span class="status-dot"></span>Pending</span></td>
+            </tr>
+            <tr>
+              <td>13 Apr 2026</td>
+              <td>Cloudagents</td>
+              <td>8.0h</td>
+              <td><span class="status-approved"><span class="status-dot"></span>Approved</span></td>
+            </tr>
+            <tr>
+              <td>10 Apr 2026</td>
+              <td>Cloudagents</td>
+              <td>8.0h</td>
+              <td><span class="status-approved"><span class="status-dot"></span>Approved</span></td>
+            </tr>
+            <tr>
+              <td>09 Apr 2026</td>
+              <td>Cloudagents</td>
+              <td>8.0h</td>
+              <td><span class="status-approved"><span class="status-dot"></span>Approved</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Leave Balance</h2></div>
+        <div class="leave-card casual">
+          <div class="leave-num">8</div>
+          <div class="leave-lbl">Casual Leave</div>
+        </div>
+        <div class="leave-card sick">
+          <div class="leave-num">5</div>
+          <div class="leave-lbl">Sick Leave</div>
+        </div>
+        <div class="leave-card earned">
+          <div class="leave-num">12</div>
+          <div class="leave-lbl">Earned Leave</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

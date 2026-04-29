@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pick Your HRMS UI Design — VEGAS IT GLOBAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: #f5f5f7; color: #1a202c; padding: 40px 20px; min-height: 100vh; }
+.header { text-align: center; margin-bottom: 60px; }
+.header .logo { display: inline-block; padding: 8px 20px; background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; border-radius: 100px; font-weight: 700; margin-bottom: 20px; }
+.header h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+.header p { color: #64748b; font-size: 18px; }
+.designs { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.design-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.06); transition: all .3s; text-decoration: none; color: inherit; border: 3px solid transparent; }
+.design-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: #3b82f6; }
+.design-preview { height: 320px; background-size: cover; background-position: top; position: relative; }
+.design-preview iframe { width: 100%; height: 100%; border: 0; pointer-events: none; transform: scale(0.5); transform-origin: 0 0; width: 200%; height: 200%; }
+.design-content { padding: 28px; }
+.design-label { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+.label-1 { background: #dbeafe; color: #1e40af; }
+.label-2 { background: #f0f0f0; color: #000; }
+.label-3 { background: #fce7f3; color: #be185d; }
+.label-4 { background: #1f1f1f; color: #a78bfa; }
+.design-content h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.design-content p { color: #64748b; font-size: 14px; margin-bottom: 16px; }
+.design-features { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.feature { background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+.view-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: #1e3a8a; color: white; border-radius: 10px; font-weight: 600; font-size: 14px; text-decoration: none; }
+.view-btn:hover { background: #3b82f6; }
+.instructions { max-width: 800px; margin: 60px auto 0; background: white; border-radius: 16px; padding: 32px; text-align: center; }
+.instructions h3 { font-size: 20px; margin-bottom: 12px; }
+.instructions p { color: #64748b; }
+.design-id { background: #fbbf24; color: #000; padding: 2px 10px; border-radius: 6px; font-family: monospace; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">VEGAS IT GLOBAL</div>
+  <h1>Pick Your HRMS UI Design</h1>
+  <p>Click any design to see the full preview. Tell me which one you want, and I'll implement it.</p>
+</div>
+
+<div class="designs">
+  <a href="/mockups/design1-modern-corporate.html" target="_blank" class="design-card">
+    <div class="design-preview" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); display: flex; align-items: center; justify-content: center;">
+      <div style="text-align:center;color:white;padding:40px;">
+        <div style="width:80px;height:80px;background:rgba(255,255,255,0.2);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;font-weight:800;">V</div>
+        <div style="font-size:24px;font-weight:700;">Modern Corporate</div>
+        <div style="opacity:0.8;margin-top:8px;">Professional · Blue gradient</div>
+      </div>
+    </div>
+    <div class="design-content">
+      <span class="design-label label-1">DESIGN 1</span>
+      <h2>Modern Corporate</h2>
+      <p>Professional blue gradient theme. Clean cards, clear stats, corporate feel. Perfect for a traditional IT services company.</p>
+      <div class="design-features">
+        <span class="feature">✓ Blue gradient</span>
+        <span class="feature">✓ Card layout</span>
+        <span class="feature">✓ Professional</span>
+        <span class="feature">✓ Easy to use</span>
+      </div>
+      <span class="view-btn">View full preview <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+  </a>
+
+  <a href="/mockups/design2-minimalist.html" target="_blank" class="design-card">
+    <div class="design-preview" style="background: #fafafa; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #e5e5e5;">
+      <div style="text-align:center;padding:40px;">
+        <div style="font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;"><span style="display:inline-block;width:10px;height:10px;background:#000;border-radius:50%;margin-right:8px;vertical-align:middle;"></span>VEGAS IT GLOBAL</div>
+        <div style="color:#737373;">Minimalist · Black & White</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:24px;">
+          <div style="width:60px;height:40px;background:white;border:1px solid #e5e5e5;border-radius:6px;"></div>
+          <div style="width:60px;height:40px;background:white;border:1px solid #e5e5e5;border-radius:6px;"></div>
+          <div style="width:60px;height:40px;background:white;border:1px solid #e5e5e5;border-radius:6px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-content">
+      <span class="design-label label-2">DESIGN 2</span>
+      <h2>Minimalist Clean</h2>
+      <p>Ultra-clean, typography-focused, lots of whitespace. Like Linear or Notion. Perfect for teams who want zero distractions.</p>
+      <div class="design-features">
+        <span class="feature">✓ Minimal design</span>
+        <span class="feature">✓ Sidebar nav</span>
+        <span class="feature">✓ Linear-style</span>
+        <span class="feature">✓ Super simple</span>
+      </div>
+      <span class="view-btn">View full preview <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+  </a>
+
+  <a href="/mockups/design3-colorful.html" target="_blank" class="design-card">
+    <div class="design-preview" style="background: linear-gradient(135deg, #fce7f3, #ddd6fe, #bae6fd); display: flex; align-items: center; justify-content: center;">
+      <div style="text-align:center;padding:40px;">
+        <div style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Hey there! ✨</div>
+        <div style="color:#64748b;margin-top:8px;">Colorful · Friendly · Gradients</div>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+          <div style="width:80px;height:50px;background:linear-gradient(135deg,#8b5cf6,#6366f1);border-radius:12px;"></div>
+          <div style="width:80px;height:50px;background:linear-gradient(135deg,#f472b6,#ec4899);border-radius:12px;"></div>
+          <div style="width:80px;height:50px;background:linear-gradient(135deg,#14b8a6,#0891b2);border-radius:12px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-content">
+      <span class="design-label label-3">DESIGN 3</span>
+      <h2>Colorful & Friendly</h2>
+      <p>Playful gradients, glass-morphism effect, colorful cards. Employees will love the friendly vibe. Modern and eye-catching.</p>
+      <div class="design-features">
+        <span class="feature">✓ Gradient colors</span>
+        <span class="feature">✓ Glass effect</span>
+        <span class="feature">✓ Playful</span>
+        <span class="feature">✓ Modern</span>
+      </div>
+      <span class="view-btn">View full preview <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+  </a>
+
+  <a href="/mockups/design4-dark.html" target="_blank" class="design-card">
+    <div class="design-preview" style="background: #0a0a0a; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+      <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(139,92,246,0.4),transparent 70%);"></div>
+      <div style="text-align:center;padding:40px;position:relative;">
+        <div style="width:60px;height:60px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:28px;color:white;">V</div>
+        <div style="font-size:24px;font-weight:700;color:white;">Dark Pro</div>
+        <div style="color:#a78bfa;margin-top:4px;">Modern · Tech · Premium</div>
+      </div>
+    </div>
+    <div class="design-content">
+      <span class="design-label label-4">DESIGN 4</span>
+      <h2>Dark Pro</h2>
+      <p>Premium dark theme with purple/pink accents. Like Vercel, Linear Dark Mode, or GitHub Dark. Perfect for tech-savvy teams.</p>
+      <div class="design-features">
+        <span class="feature">✓ Dark mode</span>
+        <span class="feature">✓ Neon accents</span>
+        <span class="feature">✓ Tech vibe</span>
+        <span class="feature">✓ Premium feel</span>
+      </div>
+      <span class="view-btn">View full preview <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+  </a>
+</div>
+
+<div class="instructions">
+  <h3>🎨 How to choose</h3>
+  <p>Click each design above to see the full preview. Then reply with: <span class="design-id">Design 1</span>, <span class="design-id">Design 2</span>, <span class="design-id">Design 3</span>, or <span class="design-id">Design 4</span></p>
+  <p style="margin-top:8px;font-size:14px;">I'll implement the chosen design as a custom employee portal on your HRMS.</p>
+</div>
+
+</body>
+</html>

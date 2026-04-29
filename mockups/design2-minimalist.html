@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Design 2: Minimalist Clean — VEGAS IT GLOBAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: #fafafa; color: #0a0a0a; }
+.layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar { background: white; border-right: 1px solid #e5e5e5; padding: 24px 0; }
+.sidebar-logo { padding: 0 24px 24px; border-bottom: 1px solid #e5e5e5; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; }
+.sidebar-logo .dot { display: inline-block; width: 8px; height: 8px; background: #000; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+.nav { padding: 16px 12px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: #525252; font-size: 14px; margin-bottom: 2px; cursor: pointer; transition: all .15s; }
+.nav-item:hover { background: #f5f5f5; color: #0a0a0a; }
+.nav-item.active { background: #0a0a0a; color: white; }
+.nav-item i { font-size: 14px; width: 16px; }
+.main { padding: 40px 48px; max-width: 1200px; }
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+.page-title { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+.page-meta { color: #737373; font-size: 14px; }
+.search { background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 8px 12px; font-size: 14px; width: 280px; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #e5e5e5; border-radius: 12px; overflow: hidden; margin-bottom: 40px; border: 1px solid #e5e5e5; }
+.metric { background: white; padding: 24px; }
+.metric-label { font-size: 12px; color: #737373; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.metric-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+.metric-change { font-size: 12px; color: #16a34a; }
+.section { margin-bottom: 40px; }
+.section-title { font-size: 11px; font-weight: 600; color: #737373; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; }
+.quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.quick-card { background: white; border: 1px solid #e5e5e5; border-radius: 10px; padding: 20px; cursor: pointer; transition: all .15s; }
+.quick-card:hover { border-color: #0a0a0a; }
+.quick-icon { font-size: 20px; color: #0a0a0a; margin-bottom: 12px; }
+.quick-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.quick-desc { font-size: 12px; color: #737373; }
+.activity-table { background: white; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+.table-row { display: grid; grid-template-columns: 1fr 1fr 1fr 100px; padding: 16px 20px; border-bottom: 1px solid #f5f5f5; font-size: 14px; align-items: center; }
+.table-row:last-child { border-bottom: none; }
+.table-row.header { background: #fafafa; font-size: 11px; color: #737373; text-transform: uppercase; letter-spacing: .05em; font-weight: 500; }
+.badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+.badge.approved { background: #ecfdf5; color: #065f46; }
+.badge.pending { background: #fefce8; color: #854d0e; }
+.badge.draft { background: #f5f5f5; color: #525252; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><span class="dot"></span>VEGAS IT GLOBAL</div>
+    <nav class="nav">
+      <div class="nav-item active"><i class="fa-solid fa-house"></i>Dashboard</div>
+      <div class="nav-item"><i class="fa-regular fa-clock"></i>Timesheets</div>
+      <div class="nav-item"><i class="fa-solid fa-plane"></i>Leaves</div>
+      <div class="nav-item"><i class="fa-regular fa-file"></i>Payslips</div>
+      <div class="nav-item"><i class="fa-regular fa-user"></i>Profile</div>
+      <div class="nav-item"><i class="fa-regular fa-circle-question"></i>Help</div>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-meta">Tuesday, 14 April 2026</div>
+      </div>
+      <input type="text" class="search" placeholder="Search...">
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Today</div>
+        <div class="metric-value">8.0<span style="font-size:16px;color:#737373;"> hrs</span></div>
+        <div class="metric-change">On track</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">This Month</div>
+        <div class="metric-value">176<span style="font-size:16px;color:#737373;"> hrs</span></div>
+        <div class="metric-change">+8 vs target</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Leaves Left</div>
+        <div class="metric-value">15</div>
+        <div class="metric-change" style="color:#737373;">of 30 annual</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Next Payslip</div>
+        <div class="metric-value">Apr 30</div>
+        <div class="metric-change" style="color:#737373;">in 16 days</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Quick Actions</div>
+      <div class="quick-grid">
+        <div class="quick-card">
+          <div class="quick-icon"><i class="fa-regular fa-clock"></i></div>
+          <div class="quick-title">New Timesheet</div>
+          <div class="quick-desc">Log today's hours</div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-icon"><i class="fa-solid fa-plane"></i></div>
+          <div class="quick-title">Apply Leave</div>
+          <div class="quick-desc">Request time off</div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-icon"><i class="fa-regular fa-file-lines"></i></div>
+          <div class="quick-title">View Payslip</div>
+          <div class="quick-desc">Latest: March 2026</div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-icon"><i class="fa-regular fa-id-card"></i></div>
+          <div class="quick-title">My Profile</div>
+          <div class="quick-desc">Update details</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Recent Timesheets</div>
+      <div class="activity-table">
+        <div class="table-row header">
+          <div>Date</div>
+          <div>Project</div>
+          <div>Hours</div>
+          <div>Status</div>
+        </div>
+        <div class="table-row">
+          <div>14 Apr 2026</div>
+          <div>Cloudagents</div>
+          <div>8.0 hrs</div>
+          <div><span class="badge pending">Pending</span></div>
+        </div>
+        <div class="table-row">
+          <div>13 Apr 2026</div>
+          <div>Cloudagents</div>
+          <div>8.0 hrs</div>
+          <div><span class="badge approved">Approved</span></div>
+        </div>
+        <div class="table-row">
+          <div>10 Apr 2026</div>
+          <div>Cloudagents</div>
+          <div>8.0 hrs</div>
+          <div><span class="badge approved">Approved</span></div>
+        </div>
+        <div class="table-row">
+          <div>09 Apr 2026</div>
+          <div>Cloudagents</div>
+          <div>8.0 hrs</div>
+          <div><span class="badge approved">Approved</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

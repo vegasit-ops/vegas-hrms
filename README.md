@@ -144,6 +144,35 @@ Automated deployment via GitHub Actions:
 | `DROPLET_SSH_KEY` | Private SSH key for server access  |
 | `DROPLET_IP`      | Server IP (`159.65.23.84`)        |
 
+## Custom Portals & Theme
+
+The system includes custom-branded UI on top of standard Frappe HRMS:
+
+### Routes
+| URL | Description |
+|---|---|
+| `/vegas-login/` | Branded split-screen login page |
+| `/portal/` | **Employee Portal** - Dashboard with quick actions, timesheet/leave forms, payslip downloads |
+| `/manager/` | **Manager Portal** - HR admin dashboard with one-click approvals, KPIs, team view |
+| `/app/...` | Standard Frappe Desk (themed via injected CSS) |
+| `/mockups/` | UI design mockups (4 styles for reference) |
+
+### Theme
+- **Design**: Colorful & Friendly (Plus Jakarta Sans + purple-pink gradients + glass-morphism)
+- **CSS injection**: nginx `sub_filter` injects `/css/vegas-theme.css` into every Frappe HTML response
+- Smart role-based redirect: Employee → portal, Manager → manager dashboard
+
+## Payroll Configuration
+
+- **Salary Structure**: `VEGAS IT GLOBAL Standard CTC-2`
+- **Earnings (% of base)**: Basic 50%, HRA 20%, Conveyance 6%, Special 14%, Medical 10%
+- **Deductions**:
+  - **PF**: 12% of Basic, capped at ₹1,800/month
+  - **Professional Tax**: ₹200/month (AP/TS slab)
+  - **Income Tax**: India FY 2025-26 New Regime (Budget 2025) + 4% cess + Section 87A rebate
+- **Joining Month Proration**: `worked_days = month_end - DOJ` (excludes joining day)
+- **Auto Payslip Generation**: Server Script runs 1 AM on 30th of every month
+
 ## File Structure
 
 ```
@@ -152,16 +181,25 @@ vegas-hrms/
   docker-compose.prod.yml      # Production Docker Compose stack
   setup.sh                     # Initial site creation script
   .env.example                 # Environment variable template
-  .github/
-    workflows/
-      deploy.yml               # CI/CD deploy pipeline
-      backup.yml               # Scheduled backup workflow
+  .github/workflows/
+    deploy.yml                 # CI/CD deploy pipeline
+    backup.yml                 # Scheduled backup workflow
+  portal/                      # Employee portal (Design 3)
+  manager/                     # Manager portal (HR Admin)
+  vegas-login/                 # Custom branded login
+  css/vegas-theme.css          # Global theme injected into Frappe
+  mockups/                     # UI design previews (4 styles)
   scripts/
     backup.sh                  # Manual backup script
     restore.sh                 # Restore from backup
     update.sh                  # Update/upgrade script
+    payroll/
+      generate_payslips.py     # Wipe + regenerate slips with proration
+      create_print_format.py   # VEGAS Payslip print format (Indutech-style)
+      setup_employee_fields.py # Add PAN/IFSC/PF custom fields
+      README.md                # Payroll docs
   nginx/
-    hrms.conf                  # Host Nginx reverse proxy config
+    hrms.conf                  # Host Nginx reverse proxy + portal routes + CSS injection
 ```
 
 ## Troubleshooting

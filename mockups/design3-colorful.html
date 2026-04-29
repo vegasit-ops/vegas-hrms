@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Design 3: Colorful & Friendly — VEGAS IT GLOBAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+body { background: #f8f9ff; color: #0f172a; overflow-x: hidden; }
+.bg-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .4; }
+.orb1 { width: 400px; height: 400px; background: #a78bfa; top: -100px; left: -100px; }
+.orb2 { width: 500px; height: 500px; background: #fb7185; top: 50%; right: -150px; }
+.orb3 { width: 300px; height: 300px; background: #34d399; bottom: -50px; left: 30%; }
+.content { position: relative; z-index: 1; }
+.nav-top { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); background: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.8); position: sticky; top: 0; z-index: 10; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; }
+.brand-logo { width: 40px; height: 40px; background: linear-gradient(135deg, #a78bfa, #fb7185); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; }
+.profile-pill { display: flex; align-items: center; gap: 10px; background: white; border-radius: 100px; padding: 6px 16px 6px 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.profile-pill .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #a78bfa, #fb7185); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+.hero { padding: 60px 40px 30px; max-width: 1400px; margin: 0 auto; }
+.hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; background: linear-gradient(135deg, #0f172a 0%, #6366f1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: #64748b; font-size: 18px; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 40px 60px; }
+.hero-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+.hero-card { border-radius: 24px; padding: 28px; color: white; position: relative; overflow: hidden; cursor: pointer; transition: transform .3s; }
+.hero-card:hover { transform: translateY(-4px); }
+.hero-card::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="80" cy="20" r="30" fill="rgba(255,255,255,0.1)"/%3E%3C/svg%3E'); }
+.hero-card > * { position: relative; z-index: 1; }
+.hero-card.purple { background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); }
+.hero-card.pink { background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); }
+.hero-card.teal { background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%); }
+.hero-card .icon { width: 56px; height: 56px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+.hero-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.hero-card p { opacity: .9; font-size: 14px; margin-bottom: 20px; }
+.hero-card .arrow { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 32px; }
+.glass-panel { background: rgba(255,255,255,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); border-radius: 24px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.glass-panel h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.stats-row { display: flex; gap: 16px; margin-bottom: 24px; }
+.mini-stat { flex: 1; padding: 16px; border-radius: 16px; }
+.mini-stat.blue { background: #e0f2fe; }
+.mini-stat.green { background: #dcfce7; }
+.mini-stat.orange { background: #ffedd5; }
+.mini-stat-val { font-size: 24px; font-weight: 700; }
+.mini-stat-lbl { font-size: 12px; color: #475569; margin-top: 2px; }
+.progress-item { margin-bottom: 16px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+.progress-bar { height: 8px; background: #f1f5f9; border-radius: 100px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #a78bfa, #fb7185); }
+.timeline-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px dashed #e2e8f0; }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.timeline-icon.green { background: #dcfce7; color: #15803d; }
+.timeline-icon.orange { background: #ffedd5; color: #c2410c; }
+.timeline-icon.blue { background: #e0f2fe; color: #0369a1; }
+.timeline-content h4 { font-size: 14px; font-weight: 600; }
+.timeline-content p { font-size: 12px; color: #64748b; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<div class="content">
+  <nav class="nav-top">
+    <div class="brand">
+      <div class="brand-logo">V</div>
+      <span>VEGAS IT GLOBAL</span>
+    </div>
+    <div class="profile-pill">
+      <div class="avatar">OV</div>
+      <span style="font-weight:600;font-size:14px;">Orugunta</span>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Hey Orugunta! ✨</h1>
+    <p>Ready to make today count? Let's see what's on your plate.</p>
+  </div>
+
+  <div class="container">
+    <div class="hero-cards">
+      <div class="hero-card purple">
+        <div class="icon"><i class="fa-regular fa-clock"></i></div>
+        <h3>Log Today's Hours</h3>
+        <p>Submit your timesheet for Cloudagents project. 8 hours expected.</p>
+        <span class="arrow">Start timer <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="hero-card pink">
+        <div class="icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+        <h3>Apply for Leave</h3>
+        <p>Need a break? You have 15 days of leave remaining this year.</p>
+        <span class="arrow">Request now <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="hero-card teal">
+        <div class="icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3>View Payslip</h3>
+        <p>Your March 2026 payslip is available. Download and view details.</p>
+        <span class="arrow">Download <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="glass-panel">
+        <h2>📊 This Month's Overview</h2>
+        <div class="stats-row">
+          <div class="mini-stat blue">
+            <div class="mini-stat-val">176 hrs</div>
+            <div class="mini-stat-lbl">Hours logged</div>
+          </div>
+          <div class="mini-stat green">
+            <div class="mini-stat-val">22/22</div>
+            <div class="mini-stat-lbl">Days present</div>
+          </div>
+          <div class="mini-stat orange">
+            <div class="mini-stat-val">0</div>
+            <div class="mini-stat-lbl">Pending items</div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>Monthly timesheet goal</span><span>176 / 176 hrs</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>Attendance rate</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>Leave utilization</span><span>50%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+
+      <div class="glass-panel">
+        <h2>🔔 Latest Updates</h2>
+        <div class="timeline-item">
+          <div class="timeline-icon green"><i class="fa-solid fa-check"></i></div>
+          <div class="timeline-content">
+            <h4>Timesheet approved</h4>
+            <p>April 13 · 2 hours ago</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon orange"><i class="fa-regular fa-clock"></i></div>
+          <div class="timeline-content">
+            <h4>Pending approval</h4>
+            <p>April 14 timesheet · 4 hrs ago</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon blue"><i class="fa-solid fa-file-invoice"></i></div>
+          <div class="timeline-content">
+            <h4>New payslip</h4>
+            <p>March 2026 · 2 days ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
